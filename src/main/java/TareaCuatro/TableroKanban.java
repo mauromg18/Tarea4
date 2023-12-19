@@ -1,4 +1,5 @@
 package TareaCuatro;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +109,25 @@ public class TableroKanban implements Serializable {
             case TERMINADO:
                 terminadoList.remove(tarea);
                 break;
+        }
+    }
+
+    /**
+     * Obtiene la lista de tareas por un estado específico.
+     *
+     * @param estado Estado de las tareas a obtener.
+     * @return Lista de tareas en el estado especificado.
+     */
+    public List<Tarea> getTareasPorEstado(EstadoTarea estado) {
+        switch (estado) {
+            case POR_HACER:
+                return porHacerList;
+            case EN_PROCESO:
+                return enProcesoList;
+            case TERMINADO:
+                return terminadoList;
+            default:
+                return new ArrayList<>();
         }
     }
 }

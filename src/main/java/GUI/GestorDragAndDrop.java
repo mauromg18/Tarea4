@@ -6,10 +6,10 @@ import TareaCuatro.EstadoTarea;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.awt.dnd.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GestorDragAndDrop extends JFrame {
     private TableroKanban tableroKanban;
@@ -48,55 +48,31 @@ public class GestorDragAndDrop extends JFrame {
     private void actualizarPanel(JPanel panel, EstadoTarea estado) {
         panel.removeAll();
         for (Tarea tarea : tableroKanban.getTareasPorEstado(estado)) {
-            JButton btnTarea = new JButton(tarea.getDescripcion());
+            JButton btnTarea = crearBotonTarea(tarea);
             panel.add(btnTarea);
         }
         panel.revalidate();
         panel.repaint();
     }
 
+    private JButton crearBotonTarea(Tarea tarea) {
+        JButton btnTarea = new JButton(tarea.getDescripcion());
+        btnTarea.setTransferHandler(new TransferHandler("text"));
+
+        btnTarea.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                JComponent c = (JComponent) e.getSource();
+                TransferHandler handler = c.getTransferHandler();
+                handler.exportAsDrag(c, e, TransferHandler.COPY);
+            }
+        });
+
+        return btnTarea;
+    }
+
     private void configurarDragAndDrop(JPanel panel, EstadoTarea estado) {
         panel.setTransferHandler(new TransferHandler("text"));
-
-        panel.addDragGestureListener(new DragGestureListener() {
-            @Override
-            public void dragGestureRecognized(DragGestureEvent dge) {
-                JComponent c = (JComponent) dge.getComponent();
-                TransferHandler handler = c.getTransferHandler();
-                handler.exportAsDrag(c, dge.getTriggerEvent(), TransferHandler.COPY);
-            }
-        });
-
-        panel.setDropTarget(new DropTarget() {
-            @Override
-            public synchronized void drop(DropTargetDropEvent dtde) {
-                try {
-                    Transferable transferable = dtde.getTransferable();
-                    DataFlavor[] flavors = transferable.getTransferDataFlavors();
-
-                    for (DataFlavor flavor : flavors) {
-                        if (flavor.isFlavorTextType()) {
-                            dtde.acceptDrop(DnDConstants.ACTION_COPY);
-                            String data = (String) transferable.getTransferData(flavor);
-                            Tarea tarea = tableroKanban.getTareaPorDescripcion(data);
-
-                            if (tarea != null) {
-                                tableroKanban.moverTarea(tarea, estado);
-                                actualizarPanel(panel, estado);
-                            }
-
-                            dtde.dropComplete(true);
-                            return;
-                        }
-                    }
-
-                    dtde.rejectDrop();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    dtde.rejectDrop();
-                }
-            }
-        });
     }
 
     private TableroKanban cargarTableroKanban() {
@@ -117,3 +93,4 @@ public class GestorDragAndDrop extends JFrame {
         });
     }
 }
+
