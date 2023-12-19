@@ -1,7 +1,4 @@
 package TareaCuatro;
-
-package com.tuempresa.kanban.logica;
-
 import java.io.Serializable;
 
 /**
