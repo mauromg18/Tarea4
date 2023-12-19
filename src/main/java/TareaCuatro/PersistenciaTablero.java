@@ -1,7 +1,4 @@
 package TareaCuatro;
-
-import TareaCuatro.TableroKanban;
-
 import java.io.*;
 
 /**
@@ -43,4 +40,3 @@ public class PersistenciaTablero {
         return (tableroKanban != null) ? tableroKanban : new TableroKanban();
     }
 }
-

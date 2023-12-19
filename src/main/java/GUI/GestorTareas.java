@@ -1,20 +1,21 @@
 package GUI;
+
 import TareaCuatro.TableroKanban;
 import TareaCuatro.Tarea;
-import TareaCuatro.EstadoTarea;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.FlowLayout;
+
 
 public class GestorTareas extends JFrame {
     private TableroKanban tableroKanban;
     private JTextField txtNuevaTarea;
     private JButton btnAgregarTarea;
 
-    public GestorTareas() {
-        tableroKanban = cargarTableroKanban();
+    public GestorTareas(TableroKanban tableroKanban) {
+        this.tableroKanban = tableroKanban;
 
         // Configuración de la interfaz gráfica aquí
         txtNuevaTarea = new JTextField(20);
@@ -47,14 +48,4 @@ public class GestorTareas extends JFrame {
         add(txtNuevaTarea);
         add(btnAgregarTarea);
     }
-
-    private TableroKanban cargarTableroKanban() {
-        // Implementa la lógica para cargar el tablero desde algún lugar (puede ser un archivo, base de datos, etc.)
-        return new TableroKanban();
-    }
-
-    private void guardarTableroKanban() {
-        // Implementa la lógica para guardar el tablero en algún lugar (puede ser un archivo, base de datos, etc.)
-    }
-
 }

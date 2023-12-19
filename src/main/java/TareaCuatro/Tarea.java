@@ -47,4 +47,3 @@ public class Tarea implements Serializable {
         this.estado = estado;
     }
 }
-
