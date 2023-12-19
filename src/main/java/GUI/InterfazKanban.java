@@ -1,4 +1,5 @@
 package GUI;
+
 import TareaCuatro.TableroKanban;
 import TareaCuatro.Tarea;
 import TareaCuatro.EstadoTarea;
@@ -21,7 +22,7 @@ public class InterfazKanban extends JFrame {
     public InterfazKanban() {
         tableroKanban = cargarTableroKanban();
 
-        // Configuración de la interfaz gráfica aquí
+        // Configuración de la interfaz gráfica
 
         // Ejemplo de cómo crear una tarea
         Tarea tarea = new Tarea("Tarea de ejemplo");
@@ -31,6 +32,11 @@ public class InterfazKanban extends JFrame {
         tableroKanban.moverTarea(tarea, EstadoTarea.EN_PROCESO);
     }
 
+    /**
+     * Carga el tablero Kanban desde un archivo serializado.
+     *
+     * @return El tablero Kanban cargado o un nuevo tablero vacío si ocurre un error.
+     */
     private TableroKanban cargarTableroKanban() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("kanban.ser"))) {
             return (TableroKanban) ois.readObject();
@@ -42,6 +48,9 @@ public class InterfazKanban extends JFrame {
         }
     }
 
+    /**
+     * Guarda el tablero Kanban actual en un archivo serializado.
+     */
     private void guardarTableroKanban() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("kanban.ser"))) {
             oos.writeObject(tableroKanban);

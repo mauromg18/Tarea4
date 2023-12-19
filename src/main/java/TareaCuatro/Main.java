@@ -1,4 +1,5 @@
 package TareaCuatro;
+
 import GUI.GestorTareas;
 import GUI.GestorDragAndDrop;
 import TareaCuatro.PersistenciaTablero;
@@ -6,8 +7,16 @@ import TareaCuatro.TableroKanban;
 
 import javax.swing.*;
 
+/**
+ * Clase principal que contiene el método main para iniciar la aplicación de gestión de tareas con un tablero Kanban.
+ */
 public class Main {
 
+    /**
+     * Método principal que inicia la aplicación.
+     *
+     * @param args Los argumentos de la línea de comandos (no se utilizan en este caso).
+     */
     public static void main(String[] args) {
         // Cargar el tablero al inicio
         TableroKanban tableroKanban = PersistenciaTablero.cargarTablero();

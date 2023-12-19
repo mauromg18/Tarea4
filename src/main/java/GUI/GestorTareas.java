@@ -1,23 +1,28 @@
 package GUI;
-
 import TareaCuatro.TableroKanban;
 import TareaCuatro.Tarea;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
 
-
+/**
+ * Clase que representa un gestor de tareas en un tablero Kanban.
+ */
 public class GestorTareas extends JFrame {
     private TableroKanban tableroKanban;
     private JTextField txtNuevaTarea;
     private JButton btnAgregarTarea;
 
+    /**
+     * Constructor de la clase GestorTareas.
+     *
+     * @param tableroKanban Tablero Kanban asociado al gestor.
+     */
     public GestorTareas(TableroKanban tableroKanban) {
         this.tableroKanban = tableroKanban;
 
-        // Configuración de la interfaz gráfica aquí
+        // Configuración de la interfaz gráfica
         txtNuevaTarea = new JTextField(20);
         btnAgregarTarea = new JButton("Agregar Tarea");
 
