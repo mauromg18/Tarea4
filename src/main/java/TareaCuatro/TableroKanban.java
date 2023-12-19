@@ -130,4 +130,29 @@ public class TableroKanban implements Serializable {
                 return new ArrayList<>();
         }
     }
+
+    /**
+     * Obtiene la tarea con la descripción dada.
+     *
+     * @param descripcion Descripción de la tarea a buscar.
+     * @return Tarea con la descripción dada, o null si no se encuentra.
+     */
+    public Tarea getTareaPorDescripcion(String descripcion) {
+        for (Tarea tarea : porHacerList) {
+            if (tarea.getDescripcion().equals(descripcion)) {
+                return tarea;
+            }
+        }
+        for (Tarea tarea : enProcesoList) {
+            if (tarea.getDescripcion().equals(descripcion)) {
+                return tarea;
+            }
+        }
+        for (Tarea tarea : terminadoList) {
+            if (tarea.getDescripcion().equals(descripcion)) {
+                return tarea;
+            }
+        }
+        return null;
+    }
 }

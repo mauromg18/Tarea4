@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 public class GestorDragAndDrop extends JFrame {
     private TableroKanban tableroKanban;
     private JPanel panelPorHacer, panelEnProceso, panelTerminado;
+    private PanelEstadisticas panelEstadisticas;
 
     public GestorDragAndDrop() {
         tableroKanban = cargarTableroKanban();
@@ -22,6 +23,7 @@ public class GestorDragAndDrop extends JFrame {
         panelPorHacer = new JPanel();
         panelEnProceso = new JPanel();
         panelTerminado = new JPanel();
+        panelEstadisticas = new PanelEstadisticas(tableroKanban);
 
         // Configuración de los paneles y el diseño
         configurarPanel(panelPorHacer, "Por Hacer", EstadoTarea.POR_HACER);
@@ -33,10 +35,11 @@ public class GestorDragAndDrop extends JFrame {
         configurarDragAndDrop(panelEnProceso, EstadoTarea.EN_PROCESO);
         configurarDragAndDrop(panelTerminado, EstadoTarea.TERMINADO);
 
-        setLayout(new GridLayout(1, 3));
+        setLayout(new GridLayout(2, 3));
         add(panelPorHacer);
         add(panelEnProceso);
         add(panelTerminado);
+        add(panelEstadisticas);
     }
 
     private void configurarPanel(JPanel panel, String titulo, EstadoTarea estado) {
@@ -48,16 +51,20 @@ public class GestorDragAndDrop extends JFrame {
     private void actualizarPanel(JPanel panel, EstadoTarea estado) {
         panel.removeAll();
         for (Tarea tarea : tableroKanban.getTareasPorEstado(estado)) {
-            JButton btnTarea = crearBotonTarea(tarea);
+            JButton btnTarea = crearBotonTarea(tarea, panel, estado);
             panel.add(btnTarea);
         }
+        panelEstadisticas.actualizarEstadisticas();
         panel.revalidate();
         panel.repaint();
     }
 
-    private JButton crearBotonTarea(Tarea tarea) {
+    private JButton crearBotonTarea(Tarea tarea, JPanel panel, EstadoTarea estado) {
         JButton btnTarea = new JButton(tarea.getDescripcion());
         btnTarea.setTransferHandler(new TransferHandler("text"));
+
+        // Configurar el GestorEliminarTarea para el botón actual
+        btnTarea.addActionListener(new GestorEliminarTarea(tableroKanban, panel, estado));
 
         btnTarea.addMouseListener(new MouseAdapter() {
             @Override
@@ -76,12 +83,11 @@ public class GestorDragAndDrop extends JFrame {
     }
 
     private TableroKanban cargarTableroKanban() {
-        // Implementa la lógica para cargar el tablero desde algún lugar (puede ser un archivo, base de datos, etc.)
-        return new TableroKanban();
+        return new TableroKanban(); // Implementa la lógica para cargar el tablero desde algún lugar
     }
 
     private void guardarTableroKanban() {
-        // Implementa la lógica para guardar el tablero en algún lugar (puede ser un archivo, base de datos, etc.)
+        // Implementa la lógica para guardar el tablero en algún lugar
     }
 
     public static void main(String[] args) {
@@ -93,4 +99,3 @@ public class GestorDragAndDrop extends JFrame {
         });
     }
 }
-
