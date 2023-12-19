@@ -21,7 +21,7 @@ public class GestorDragAndDrop extends JFrame {
         // Configuración de la interfaz gráfica aquí
         panelPorHacer = new JPanel();
         panelEnProceso = new JPanel();
-        panelTerminado = new JPanel();
+        panelTeminado = new JPanel();
 
         // Configuración de los paneles y el diseño
         configurarPanel(panelPorHacer, "Por Hacer", EstadoTarea.POR_HACER);
