@@ -38,7 +38,7 @@ public class Tarea implements Serializable {
      * @return Estado de la tarea.
      */
     public EstadoTarea getEstado() {
-        return stado;
+        return estado;
     }
 
     /**
