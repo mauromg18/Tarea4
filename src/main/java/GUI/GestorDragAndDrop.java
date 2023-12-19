@@ -4,10 +4,9 @@ import TareaCuatro.TableroKanban;
 import TareaCuatro.Tarea;
 import TareaCuatro.EstadoTarea;
 
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -16,8 +15,8 @@ public class GestorDragAndDrop extends JFrame {
     private JPanel panelPorHacer, panelEnProceso, panelTerminado;
     private PanelEstadisticas panelEstadisticas;
 
-    public GestorDragAndDrop() {
-        tableroKanban = cargarTableroKanban();
+    public GestorDragAndDrop(TableroKanban tableroKanban) {
+        this.tableroKanban = tableroKanban;
 
         // Configuración de la interfaz gráfica aquí
         panelPorHacer = new JPanel();
@@ -80,22 +79,5 @@ public class GestorDragAndDrop extends JFrame {
 
     private void configurarDragAndDrop(JPanel panel, EstadoTarea estado) {
         panel.setTransferHandler(new TransferHandler("text"));
-    }
-
-    private TableroKanban cargarTableroKanban() {
-        return new TableroKanban(); // Implementa la lógica para cargar el tablero desde algún lugar
-    }
-
-    private void guardarTableroKanban() {
-        // Implementa la lógica para guardar el tablero en algún lugar
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            GestorDragAndDrop gestorDragAndDrop = new GestorDragAndDrop();
-            gestorDragAndDrop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            gestorDragAndDrop.setSize(800, 600);
-            gestorDragAndDrop.setVisible(true);
-        });
     }
 }

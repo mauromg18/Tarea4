@@ -57,12 +57,4 @@ public class GestorTareas extends JFrame {
         // Implementa la lógica para guardar el tablero en algún lugar (puede ser un archivo, base de datos, etc.)
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            GestorTareas gestorTareas = new GestorTareas();
-            gestorTareas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            gestorTareas.setSize(400, 150);
-            gestorTareas.setVisible(true);
-        });
-    }
 }
